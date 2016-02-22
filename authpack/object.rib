@@ -1,0 +1,10 @@
+# Dragon-specific transformations to get it in the unit cube 
+# (i.e. from -.5 -.5 -.5 to .5 .5 .5)
+
+# scale it to unit cube
+Scale 7.2 7.2 -7.2
+# center the object
+
+Translate 0.0061385 -0.124542 0.0047485
+
+##Include dragon_res4.rib

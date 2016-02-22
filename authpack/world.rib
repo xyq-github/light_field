@@ -1,0 +1,51 @@
+# ======================================================================
+#                 Final (drawing) pass
+# ======================================================================
+
+# This file is only a template that is used to create a rib
+# file for each image in the light field.  The drawslab.perl program
+# runs sed to replace the $slabn, $u, $v, $basename variables with the
+# correct values.
+
+# Note that the ##Include line is handled by the accompanying 
+# program, rmanpp.
+
+
+FrameBegin 0
+Display "$basename.$u.$v.tif" "file" "rgba"
+
+# Drawing parameters
+PixelFilter "gaussian" 3 3
+Hider "hidden" "jitter" [1]
+PixelSamples 4 4
+ShadingRate 1
+
+Identity
+##Include window.$slabn.$u.$v.rib
+Clipping .01 2000000
+
+WorldBegin 
+
+# set up the lighting for the world.
+LightSource "ambientlight" 0 "lightcolor" [0.1 0.1 0.2]
+LightSource "shadowspot" 1 "intensity" 120 "lightcolor" [1.0 0.4 0.2] "from" [-10 0 -5] "to" [0 0 0] 
+LightSource "shadowspot" 2 "intensity" 150 "lightcolor" [.5 .75 1.0] "from" [5 10 10] "to" [0 0 0]  
+LightSource "shadowspot" 3 "intensity" 150 "lightcolor" [.5 .75 1.0] "from" [5 10 -10] "to" [0 0 0] 
+
+# This assumes that object.rib fits in the unit cube,
+# [i.e. (-.5 -.5 -.5) to (.5 .5 .5) ]
+
+##Include object.rib
+
+WorldEnd 
+FrameEnd
+
+
+
+
+
+
+
+
+
+
